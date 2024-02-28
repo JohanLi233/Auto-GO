@@ -3,9 +3,9 @@ from utilities import *
 
 
 class GameState(Enum):
-    g_over = -1
-    g_continue = 1
-    g_surrender = 0
+    game_over = -1
+    game_continue = 1
+    surrender = 0
 
 
 class Judge:  # Judge class
@@ -27,10 +27,10 @@ class Judge:  # Judge class
     @classmethod
     def next_state(cls, player_current, move, board):
         if move == SURRENDER_STONE:  # Surrender
-            return GameState.g_surrender, player_current.other()
+            return GameState.surrender, player_current.other()
         if move == PASS_STONE and board.move_records[-1][1] == PASS_STONE:
-            return GameState.g_over, None  # Both players passed
-        return GameState.g_continue, player_current.other()
+            return GameState.game_over, None  # Both players passed
+        return GameState.game_continue, player_current.other()
 
     @classmethod
     def calculate_result(cls, board):

@@ -23,9 +23,9 @@ def main():
     board.print_board()
     whosTurn = Player.black
     player_next = whosTurn
-    game_state = GameState.g_continue
+    game_state = GameState.game_continue
     count = 0
-    while game_state == GameState.g_continue:
+    while game_state == GameState.game_continue:
         print(Judge.calculate_result(board))
         count += 1
         # time.sleep(0.1)
@@ -38,16 +38,16 @@ def main():
             continue
         [game_state, player_next] = Judge.next_state(whosTurn, move, board)
         board.update_environment(whosTurn, move)
-        if game_state != GameState.g_over and game_state != GameState.g_surrender:
+        if game_state != GameState.game_over and game_state != GameState.surrender:
             board.print_board()
             whosTurn = player_next
             print(whosTurn)
         if GUI_ON:
             gui.update(board)
 
-    if game_state == GameState.g_surrender:
+    if game_state == GameState.surrender:
         print(player_next, "wins!")
-    if game_state == GameState.g_over:
+    if game_state == GameState.game_over:
         result = Judge.calculate_result(board)
         if result > 0:
             print("black wins")
