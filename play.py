@@ -1,9 +1,9 @@
 from gui import *
-from playerAgent import PlayerAgent
+from agents.playerAgent import PlayerAgent
 from board import Board
 from judge import *
 
-from randomAgent import RandomAgent
+from agents.randomAgent import RandomAgent
 
 import time
 
