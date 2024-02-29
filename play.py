@@ -31,7 +31,7 @@ def main():
         count += 1
         # time.sleep(0.1)
         if whosTurn == Player.black:
-            move = agent_b.chooseMove(board)
+            move = agent_b.choose_move(board)
         else:
             move = agent_w.chooseMove(board)
         # Double insurance that the move is legal

@@ -11,7 +11,7 @@ class SequentialAgent(Agent):
         super().__init__(player)
         self.step = 0
 
-    def chooseMove(self, board):
+    def choose_move(self, board):
         self.step += 1
         legal_moves = board.find_vacancy()
 
@@ -25,5 +25,5 @@ class SequentialAgent(Agent):
             if Judge.is_legal_move(board, move, self.player):
                 return move
 
-    def isPolicyLegal(self, move, board):
+    def is_policy_legal(self, move, board):
         return True

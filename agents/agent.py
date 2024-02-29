@@ -8,13 +8,13 @@ class Agent:
         self.step = 0
         self.player = player
 
-    def chooseMove(self, board):
+    def choose_move(self, board):
         raise NotImplementedError
 
-    def isPolicyLegal(self, move, board):
+    def is_policy_legal(self, move, board):
         raise NotImplementedError
 
-    def shouldSurrender(self, board):
+    def should_surrender(self, board):
         result = Judge.calculate_result(board)
         if result < -30 and self.step >= 20 and self.player == Player.black:
             return True

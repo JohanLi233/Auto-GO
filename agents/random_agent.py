@@ -17,7 +17,7 @@ class RandomAgent(Agent):
 
         # Giving up when a lot behind
         # Would cost too long for a game if agents play towards the real end
-        if self.shouldSurrender(board):
+        if self.should_surrender(board):
             return SURRENDER_STONE
 
         while True:
@@ -30,5 +30,5 @@ class RandomAgent(Agent):
             if Judge.is_legal_move(board, move, self.player):
                 return move
 
-    def isPolicyLegal(self, move, board):
+    def is_policy_legal(self, move, board):
         return True
