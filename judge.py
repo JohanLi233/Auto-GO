@@ -55,8 +55,9 @@ class Judge:  # Judge class
 
     @classmethod
     def calculate_result(cls, board):
-        # Komi is a fixed bonus score given to white to compensate for black's first move advantage using Chinese rules
+        # Komi is a fixed bonus score given to white to compensate for black's first move advantage using Chinese rule
         komi = 7.5
+
         # Initialize sets to track territories
         black_territory, white_territory, neutral_territory = set(), set(), set()
 

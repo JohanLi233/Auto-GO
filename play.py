@@ -20,8 +20,8 @@ def main():
             gui.update(board)
 
         # agent_b = PlayerAgent(Player.black)
-        agent_b = SequentialAgent(Player.black)
-        # agent_b = RandomAgent(Player.black)
+        # agent_b = SequentialAgent(Player.black)
+        agent_b = RandomAgent(Player.black)
         # agent_w = PlayerAgent(Player.white)
         # agent_w = SequentialAgent(Player.white)
         agent_w = RandomAgent(Player.white)
