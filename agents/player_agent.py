@@ -4,7 +4,7 @@ from judge import Judge
 
 class PlayerAgent(Agent):
 
-    def chooseMove(self, board):
+    def choose_move(self, board):
         while True:
             column = int(input("column")) - 1
             row = int(input("row")) - 1

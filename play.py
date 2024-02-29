@@ -19,8 +19,8 @@ def main():
             gui.draw_board()
             gui.update(board)
 
-        # agent_b = PlayerAgent(Player.black)
-        agent_b = SequentialAgent(Player.black)
+        agent_b = PlayerAgent(Player.black)
+        # agent_b = SequentialAgent(Player.black)
         # agent_b = RandomAgent(Player.black)
         agent_w = RandomAgent(Player.white)
         if PRINT_BOARD:
