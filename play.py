@@ -1,9 +1,10 @@
 from gui import *
-from agents.playerAgent import PlayerAgent
+from agents.player_agent import PlayerAgent
+from agents.sequential_agent import SequentialAgent
 from board import Board
 from judge import *
 
-from agents.randomAgent import RandomAgent
+from agents.random_agent import RandomAgent
 
 import time
 
@@ -18,7 +19,7 @@ def main():
         gui.update(board)
 
     # agent_b = PlayerAgent(Player.black)
-    agent_b = RandomAgent(Player.black)
+    agent_b = SequentialAgent(Player.black)
     agent_w = RandomAgent(Player.white)
     board.print_board()
     whosTurn = Player.black
