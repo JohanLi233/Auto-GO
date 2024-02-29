@@ -12,8 +12,7 @@ class RandomAgent(Agent):
     def __init__(self, player):
         super().__init__(player)
         seed = random.randrange(sys.maxsize)
-        self.rng = random.Random(1897694146040844402)
-        # self.rng = random.Random(seed)
+        self.rng = random.Random(seed)
         print("Seed was:", seed)
 
     def choose_move(self, board):

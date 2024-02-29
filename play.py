@@ -10,7 +10,7 @@ import time
 
 
 def main():
-    black_wins = 0
+    black_win_count = 0
     for i in range(STIMULATE_STPES):
         board = Board()
         gui = Gui()
@@ -42,7 +42,12 @@ def main():
 
             game_state, player_next = Judge.next_state(whosTurn, move, board)
             board.update_environment(whosTurn, move)
-            if game_state != GameState.game_over and game_state != GameState.surrender:
+            if (
+                game_state != GameState.game_over
+                and game_state != GameState.surrender
+                and GameState != GameState.white_win
+                and GameState != GameState.black_win
+            ):
                 if PRINT_BOARD:
                     board.print_board()
                 whosTurn = player_next
@@ -52,23 +57,29 @@ def main():
                 gui.update(board)
 
         if game_state == GameState.surrender:
-            print(player_next, "wins!")
+            print(player_next, "wins")
             if player_next == Player.black:
-                black_wins += 1
+                black_win_count += 1
         if game_state == GameState.game_over:
             result = Judge.calculate_result(board)
             if result > 0:
-                black_wins += 1
+                black_win_count += 1
                 print("black wins")
             elif result < 0:
                 print("white wins")
             # not possible for ties
+        if game_state == GameState.black_win:
+            black_win_count += 1
+            print("black wins")
+
+        if game_state == GameState.white_win:
+            print("white wins")
 
         if GUI_ON:
             time.sleep(1)
             gui.quit()
 
-        print("black win rate: " + str((black_wins / (i + 1))))
+        print("black win rate: " + str((black_win_count / (i + 1))))
 
 
 if __name__ == "__main__":

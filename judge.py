@@ -3,9 +3,11 @@ from utilities import *
 
 
 class GameState(Enum):
-    game_over = -1
-    game_continue = 1
-    surrender = 0
+    game_over = 1
+    surrender = 2
+    game_continue = 3
+    black_win = 4
+    white_win = 5
 
 
 class Judge:  # Judge class
@@ -30,7 +32,17 @@ class Judge:  # Judge class
         if move == SURRENDER_STONE:  # Surrender
             return GameState.surrender, player_current.other()
         if move == PASS_STONE and board.move_records[-1][1] == PASS_STONE:
-            return GameState.game_over, None  # Both players passed
+            if (
+                board.move_records[-2][1] == PASS_STONE
+                and board.move_records[-4][1] == PASS_STONE
+            ):
+                if player_current == Player.white:
+                    return GameState.black_win, None
+                else:
+                    return GameState.white_win, None
+            else:
+                return GameState.game_over, None  # Both players passed
+        # Three pass at a roll = lose
         return GameState.game_continue, player_current.other()
 
     @classmethod
