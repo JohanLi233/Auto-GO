@@ -13,17 +13,22 @@ class SequentialAgent(Agent):
 
     def choose_move(self, board):
         self.step += 1
-        legal_moves = board.find_vacancy()
+        vacancy = board.find_vacancy()
 
         while True:
-            if len(legal_moves) == 0:
+            if len(vacancy) == 0:
                 # No space to place a stone
                 return PASS_STONE
-            move = legal_moves[0]
-            legal_moves.remove(move)
+            move = vacancy[0]
+            # print(move)
+            # print(Judge.is_legal_move(board, move, self.player))
+            vacancy.remove(move)
 
             if Judge.is_legal_move(board, move, self.player):
+                print("true")
                 return move
+            else:
+                continue
 
     def is_policy_legal(self, move, board):
         return True

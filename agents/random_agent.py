@@ -3,6 +3,7 @@ from judge import Judge
 from settings import SURRENDER_STONE, PASS_STONE
 from utilities import *
 import random
+import sys
 
 
 class RandomAgent(Agent):
@@ -10,10 +11,14 @@ class RandomAgent(Agent):
 
     def __init__(self, player):
         super().__init__(player)
+        seed = random.randrange(sys.maxsize)
+        self.rng = random.Random(1897694146040844402)
+        # self.rng = random.Random(seed)
+        print("Seed was:", seed)
 
-    def chooseMove(self, board):
+    def choose_move(self, board):
         self.step += 1
-        vaccancy = board.find_vacancy()
+        vacancy = board.find_vacancy()
 
         # Giving up when a lot behind
         # Would cost too long for a game if agents play towards the real end
@@ -22,13 +27,15 @@ class RandomAgent(Agent):
 
         while True:
             # No space to place a stone
-            if len(vaccancy) == 0:
+            if len(vacancy) == 0:
                 return PASS_STONE
-            move = random.choice(vaccancy)
-            vaccancy.remove(move)
+            move = self.rng.choice(vacancy)
+            vacancy.remove(move)
 
             if Judge.is_legal_move(board, move, self.player):
                 return move
+            else:
+                continue
 
     def is_policy_legal(self, move, board):
         return True

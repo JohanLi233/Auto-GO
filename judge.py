@@ -12,17 +12,18 @@ class Judge:  # Judge class
 
     @classmethod
     def is_legal_move(cls, board, stone, player):
+        liberties, zobrist = board.evaluate(player, stone)
         # Check for pass or surrender
         if stone in [PASS_STONE, SURRENDER_STONE]:
             return True
         # Check if the move is inside the board and the position is empty
-        if not board.is_on_board(stone) or board.stones.get(stone) is not None:
+        elif not board.is_on_board(stone) or board.stones.get(stone) is not None:
             return False
         # Check for no liberties or repeat of board state
-        no_liberties, zobrist = board.evaluate(player, stone)
-        if no_liberties == 0 or (player, zobrist) in board.board_records:
+        elif liberties == 0 or (player, zobrist) in board.board_records:
             return False
-        return True
+        else:
+            return True
 
     @classmethod
     def next_state(cls, player_current, move, board):

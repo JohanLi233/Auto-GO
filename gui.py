@@ -5,10 +5,11 @@ from settings import *
 class Gui:
 
     def __init__(self):
-        pygame.init()
-        self.screen = pygame.display.set_mode(BOARD_SIZE)
-        pygame.display.set_caption("Go Game")
-        self.font = pygame.font.SysFont(None, FONT_SIZE)
+        if GUI_ON:
+            pygame.init()
+            self.screen = pygame.display.set_mode(BOARD_SIZE)
+            pygame.display.set_caption("Go Game")
+            self.font = pygame.font.SysFont(None, FONT_SIZE)
 
     def draw_board(self):
         self.screen.fill(BOARD_COLOR)
@@ -102,3 +103,6 @@ class Gui:
         self.draw_board()
         self.draw_stones(board)
         pygame.display.flip()
+
+    def quit(self):
+        pygame.quit()

@@ -21,6 +21,10 @@ for row in range(WIDTH):
 players = ["None", "Player.black", "Player.white"]  # None for capture
 
 print("HASH_CODE = {")
+print(" ((-1, -1), Player.black): 0000000000000000000,")
+print(" ((-10, -10), Player.black): 1111111111111111111,")
+print(" ((-1, -1), Player.white): 2222222222222222222,")
+print(" ((-10, -10), Player.white): 3333333333333333333,")
 
 i = 0
 for k in coords:
