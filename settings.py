@@ -4,7 +4,7 @@ from utilities import Player
 # Play.py
 STIMULATE_STPES = 20
 PRINT_BOARD = False
-GUI_ON = False
+GUI_ON = True
 
 COLS = "ABCDEFGHJKLMNOPQRST"
 STONE_TO_CHAR = {

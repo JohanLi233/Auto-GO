@@ -36,7 +36,7 @@ def main():
             else:
                 move = agent_w.choose_move(board)
 
-            # Double insurance that the move is legal
+            # insure that the move is legal
             if not Judge.is_legal_move(board, move, whosTurn):
                 continue
 

@@ -9,7 +9,6 @@ class SequentialAgent(Agent):
 
     def __init__(self, player):
         super().__init__(player)
-        self.step = 0
 
     def choose_move(self, board):
         self.step += 1
@@ -19,13 +18,11 @@ class SequentialAgent(Agent):
             if len(vacancy) == 0:
                 # No space to place a stone
                 return PASS_STONE
+
             move = vacancy[0]
-            # print(move)
-            # print(Judge.is_legal_move(board, move, self.player))
             vacancy.remove(move)
 
             if Judge.is_legal_move(board, move, self.player):
-                print("true")
                 return move
             else:
                 continue

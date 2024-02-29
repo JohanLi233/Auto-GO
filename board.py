@@ -44,7 +44,7 @@ class Board:
         )
 
         new_chain = StoneChain(player, [stone], liberties)
-        self.update_zobrist_hash(player, stone)
+        self.update_zobrist(stone, player)
 
         # Merge with friendly chains
         for chain in friendly_chains:
@@ -94,7 +94,7 @@ class Board:
                 if neighbor_stone.belonging == player:
                     neighbor_stone.liberties.add(stone)
         self.stones.pop(stone)
-        self.update_zobrist_hash(player.other(), stone)
+        self.update_zobrist(stone, player.other())
 
     def get_neighboring_stones(self, stone):
         return [
@@ -129,7 +129,8 @@ class Board:
                     enemy_chains.append(chain)
 
         new_chain = StoneChain(player, [stone], liberties)
-        self.update_zobrist_hash(player, stone)
+
+        zobrist = self.get_zobrist_hash(stone, player, zobrist)
 
         for chain in own_chains:
             new_chain = StoneChain.merge(new_chain, chain)
@@ -146,14 +147,23 @@ class Board:
                             if neighbor_stone.belonging == player:
                                 neighbor_stone.liberties.add(captured_stone)
                     stones.pop(captured_stone)
-                    self.update_zobrist_hash(player.other(), captured_stone)
+                    zobrist = self.get_zobrist_hash(
+                        captured_stone, player.other(), zobrist
+                    )
 
         temp = stones.get(stone)
         if temp is None:
             raise ValueError("stone can not be none")
+
         return len(temp.liberties), zobrist
 
-    def update_zobrist_hash(self, player, stone):
+    def update_zobrist(self, stone, player):
+        hash_code = HASH_CODE.get((stone, player))
+        if hash_code is None:
+            raise ValueError("Can't find hash")
+        self.zobrist ^= hash_code
+
+    def get_zobrist_hash(self, stone, player, zobrist):
         """
         Updates the Zobrist hash of the board state.
 
@@ -163,7 +173,7 @@ class Board:
         hash_code = HASH_CODE.get((stone, player))
         if hash_code is None:
             raise ValueError("Can't find hash")
-        self.zobrist ^= hash_code
+        return zobrist ^ hash_code
 
     def print_board(self):
         for row in range(self.height):
