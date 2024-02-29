@@ -2,9 +2,9 @@ from utilities import Player
 
 
 # Play.py
-STIMULATE_STPES = 20
+STIMULATE_STPES = 100
 PRINT_BOARD = False
-GUI_ON = True
+GUI_ON = False
 
 COLS = "ABCDEFGHJKLMNOPQRST"
 STONE_TO_CHAR = {

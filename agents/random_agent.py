@@ -20,9 +20,9 @@ class RandomAgent(Agent):
         vacancy = board.find_vacancy()
 
         # Giving up when a lot behind
-        # Would cost too long for a game if agents play towards the real end
-        if self.should_surrender(board):
-            return SURRENDER_STONE
+        # Might cost too long for a game if agents play towards the real end for a large board
+        # if self.should_surrender(board):
+        #     return SURRENDER_STONE
 
         while True:
             # No space to place a stone

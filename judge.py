@@ -31,23 +31,31 @@ class Judge:  # Judge class
     def next_state(cls, player_current, move, board):
         if move == SURRENDER_STONE:  # Surrender
             return GameState.surrender, player_current.other()
-        if move == PASS_STONE and board.move_records[-1][1] == PASS_STONE:
-            if (
-                board.move_records[-2][1] == PASS_STONE
-                and board.move_records[-4][1] == PASS_STONE
-            ):
-                if player_current == Player.white:
-                    return GameState.black_win, None
-                else:
-                    return GameState.white_win, None
+
+        if (
+            len(board.move_records) >= 2
+            and move == PASS_STONE
+            and board.move_records[-1][1] == PASS_STONE
+        ):
+            return GameState.game_over, None  # Both players passed
+
+        if (
+            len(board.move_records) >= 4
+            and move == PASS_STONE
+            and board.move_records[-2][1] == PASS_STONE
+            and board.move_records[-4][1] == PASS_STONE
+        ):
+            if player_current == Player.white:
+                return GameState.black_win, None  # Black wins
             else:
-                return GameState.game_over, None  # Both players passed
+                return GameState.white_win, None
+
         # Three pass at a roll = lose
         return GameState.game_continue, player_current.other()
 
     @classmethod
     def calculate_result(cls, board):
-        # Komi is a fixed bonus score given to white to compensate for black's first move advantage
+        # Komi is a fixed bonus score given to white to compensate for black's first move advantage using Chinese rules
         komi = 7.5
         # Initialize sets to track territories
         black_territory, white_territory, neutral_territory = set(), set(), set()

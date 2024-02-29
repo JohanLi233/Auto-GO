@@ -14,5 +14,5 @@ class PlayerAgent(Agent):
             else:
                 print("Iilegal move")
 
-    def isPolicyLegal(self, move, board):
+    def is_policy_legal(self, move, board):
         return True
