@@ -2,11 +2,11 @@ from utilities import Player
 
 
 # Play.py
-STIMULATE_STPES = 1
+STIMULATE_STPES = 100
 PRINT_BOARD = False
-GUI_ON = True
+GUI_ON = False
 
-STORE_GAME = True
+STORE_GAME = False
 GAME_DIR = "./games/"
 
 COLS = "ABCDEFGHJKLMNOPQRST"

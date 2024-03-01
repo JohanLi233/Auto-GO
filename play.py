@@ -2,6 +2,7 @@ from gui import *
 from agents.player_agent import PlayerAgent
 from agents.sequential_agent import SequentialAgent
 from agents.random_agent import RandomAgent
+from agents.random_policy_agent import RandomPolicyAgent
 
 from board import Board
 from judge import *
@@ -21,7 +22,7 @@ def main():
 
         # agent_b = PlayerAgent(Player.black)
         # agent_b = SequentialAgent(Player.black)
-        agent_b = RandomAgent(Player.black)
+        agent_b = RandomPolicyAgent(Player.black)
         # agent_w = PlayerAgent(Player.white)
         # agent_w = SequentialAgent(Player.white)
         agent_w = RandomAgent(Player.white)
