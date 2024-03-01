@@ -23,8 +23,10 @@ def main():
         # agent_b = PlayerAgent(Player.black)
         # agent_b = SequentialAgent(Player.black)
         agent_b = RandomPolicyAgent(Player.black)
+        # agent_b = RandomAgent(Player.black)
         # agent_w = PlayerAgent(Player.white)
         # agent_w = SequentialAgent(Player.white)
+        # agent_w = RandomPolicyAgent(Player.white)
         agent_w = RandomAgent(Player.white)
 
         if PRINT_BOARD:
@@ -33,7 +35,7 @@ def main():
         player_next = whosTurn
         game_state = GameState.game_continue
         while game_state == GameState.game_continue:
-            print(Judge.calculate_result(board))
+            # print(Judge.calculate_result(board))
             if whosTurn == Player.black:
                 move = agent_b.choose_move(board)
             else:
@@ -51,10 +53,10 @@ def main():
                 and game_state != GameState.white_win
                 and game_state != GameState.black_win
             ):
+                whosTurn = player_next
                 if PRINT_BOARD:
                     board.print_board()
-                whosTurn = player_next
-                print(whosTurn)
+                    print(whosTurn)
 
             if GUI_ON:
                 gui.update(board)

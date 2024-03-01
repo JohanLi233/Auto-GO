@@ -13,7 +13,7 @@ class RandomPolicyAgent(Agent):
         super().__init__(player)
         seed = random.randrange(sys.maxsize)
         self.rng = random.Random(seed)
-        print("Seed was:", seed)
+        # print("Seed was:", seed)
 
     def choose_move(self, board):
         self.step += 1
@@ -39,22 +39,22 @@ class RandomPolicyAgent(Agent):
                 continue
 
     def is_policy_legal(self, move, board):  # use some simple rules
+        if self.is_eye(move, board):
+            return False
+        else:
+            return True
+
+    def is_eye(self, move, board):
         neighbours = board.get_neighboring_stones(move)
-        is_eye = True
         for i in neighbours:
             if not board.is_on_board(i):
                 continue
             if board.stones.get(i) == None:
-                is_eye = False
-                break
+                return False
             elif board.stones.get(i).belonging != self.player:
-                is_eye = False
-                break
+                return False
             elif len(board.stones.get(i).liberties) <= 1:
-                is_eye = False
-                break
+                return False
             else:
                 pass
-        if is_eye:
-            return False
         return True

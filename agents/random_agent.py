@@ -13,7 +13,7 @@ class RandomAgent(Agent):
         super().__init__(player)
         seed = random.randrange(sys.maxsize)
         self.rng = random.Random(seed)
-        print("Seed was:", seed)
+        # print("Seed was:", seed)
 
     def choose_move(self, board):
         self.step += 1
