@@ -20,7 +20,7 @@ class Board:
         self.move_records = []  # [(player,move)]
         self.board_records = set()
 
-    def update_environment(self, player, stone):
+    def update_board(self, player, stone):
         """Updates the game environment based on the player's move."""
         if stone == PASS_STONE:  # Player pass
             self.handle_pass(player)

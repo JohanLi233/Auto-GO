@@ -43,7 +43,7 @@ def main():
                 continue
 
             game_state, player_next = Judge.next_state(whosTurn, move, board)
-            board.update_environment(whosTurn, move)
+            board.update_board(whosTurn, move)
             if (
                 game_state != GameState.game_over
                 and game_state != GameState.surrender
@@ -62,19 +62,28 @@ def main():
             print(player_next, "wins")
             if player_next == Player.black:
                 black_win_count += 1
+                board.move_records.append(Player.black)
+            else:
+                board.move_records.append(Player.white)
+
         if game_state == GameState.game_over:
             result = Judge.calculate_result(board)
             if result > 0:
                 black_win_count += 1
+                board.move_records.append(Player.black)
                 print("black wins")
             elif result < 0:
+                board.move_records.append(Player.white)
                 print("white wins")
             # not possible for ties
+
         if game_state == GameState.black_win:
             black_win_count += 1
+            board.move_records.append(Player.black)
             print("black wins")
 
         if game_state == GameState.white_win:
+            board.move_records.append(Player.white)
             print("white wins")
 
         if GUI_ON:

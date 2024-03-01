@@ -17,11 +17,16 @@ def replay():
     gui.draw_board()
     gui.update(board)
 
-    for move in move_records:
+    for move in move_records[:-1]:
         time.sleep(0.1)
-        board.update_environment(move[0], move[1])
+        board.update_board(move[0], move[1])
         gui.draw_board()
         gui.update(board)
+
+    if move_records[-1] == Player.black:
+        print("black wins")
+    else:
+        print("white wins")
 
     time.sleep(1)
 
