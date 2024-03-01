@@ -39,6 +39,7 @@ class Judge:  # Judge class
         ):
             return GameState.game_over, None  # Both players passed
 
+        # Three pass at a roll = lose
         if (
             len(board.move_records) >= 4
             and move == PASS_STONE
@@ -50,7 +51,6 @@ class Judge:  # Judge class
             else:
                 return GameState.white_win, None
 
-        # Three pass at a roll = lose
         return GameState.game_continue, player_current.other()
 
     @classmethod

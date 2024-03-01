@@ -1,5 +1,7 @@
 from settings import *
 
+import os
+import pickle
 import copy
 import numpy as np
 from utilities import StoneChain, Player
@@ -207,3 +209,17 @@ class Board:
                 if self.stones.get((i, j)) == None:
                     vacancies.append((i, j))
         return vacancies
+
+    def store_game(self):
+        _, _, files = next(os.walk(GAME_DIR))
+        file_count = len(files)
+        file_name = GAME_DIR + str(file_count)
+
+        with open(file_name, "wb") as f:
+            pickle.dump(self.move_records, f)
+
+    def load_game(self, game_id):
+        file_name = GAME_DIR + str(game_id)
+        with open(file_name, "rb") as fp:
+            move_records = pickle.load(fp)
+        return move_records

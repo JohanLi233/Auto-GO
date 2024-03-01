@@ -6,6 +6,9 @@ STIMULATE_STPES = 1
 PRINT_BOARD = False
 GUI_ON = True
 
+STORE_GAME = True
+GAME_DIR = "./games/"
+
 COLS = "ABCDEFGHJKLMNOPQRST"
 STONE_TO_CHAR = {
     None: " . ",

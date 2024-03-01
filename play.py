@@ -81,6 +81,12 @@ def main():
             time.sleep(1)
             gui.quit()
 
+        if STORE_GAME:
+            board.store_game()
+
+        print(board.move_records)
+        print(board.stones)
+
         print("black win rate: " + str((black_win_count / (i + 1))))
 
 
