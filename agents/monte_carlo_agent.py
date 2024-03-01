@@ -27,5 +27,5 @@ class MonteCarloAgent(Agent):
             else:
                 continue
 
-    def is_policy_legal(self, move, board):
+    def is_move_efficient(self, move, board):
         return True

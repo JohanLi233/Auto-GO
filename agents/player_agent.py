@@ -13,6 +13,3 @@ class PlayerAgent(Agent):
                 return (row, column)
             else:
                 print("Iilegal move")
-
-    def is_policy_legal(self, move, board):
-        return True

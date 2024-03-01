@@ -26,6 +26,3 @@ class SequentialAgent(Agent):
                 return move
             else:
                 continue
-
-    def is_policy_legal(self, move, board):
-        return True
