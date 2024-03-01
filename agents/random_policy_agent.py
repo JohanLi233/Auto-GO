@@ -1,6 +1,6 @@
 from agents.agent import Agent
 from judge import Judge
-from settings import SURRENDER_STONE, PASS_STONE
+from settings import RANDOM_AGENT_STRATEGY, SURRENDER_STONE, PASS_STONE
 from utilities import *
 import random
 import sys
@@ -9,47 +9,34 @@ import sys
 class RandomPolicyAgent(Agent):
     """An agent that plays randomly and following some simple rules"""
 
-    def __init__(self, player, strategy):
+    def __init__(self, player):
         super().__init__(player)
         seed = random.randrange(sys.maxsize)
         self.rng = random.Random(seed)
         self.ignore_efficiency = False
-        self.strategy = strategy
         # print("Seed was:", seed)
 
     def choose_move(self, board):
         self.step += 1
         vacancy = board.find_vacancy()
+        self.rng.shuffle(vacancy)
 
-        # Giving up when a lot behind
-        # Might cost too long for a game if agents play towards the real end for a large board
-        # if self.should_surrender(board):
-        #     return SURRENDER_STONE
+        for _ in range(2):
+            for i in vacancy:
+                if self.ignore_efficiency:
+                    if Judge.is_legal_move(board, i, self.player):
+                        self.ignore_efficiency = False
+                        return i
+                    else:
+                        continue
 
-        while True:
-            # No space to place a stone
-            if len(vacancy) == 0 and self.ignore_efficiency:
-                return PASS_STONE
-            if len(vacancy) == 0:
-                # in case that no place to place a stone following the stategy
-                vacancy = board.find_vacancy()
-                self.ignore_efficiency = True
+                if self.is_move_efficient(i, board):
+                    if Judge.is_legal_move(board, i, self.player):
+                        return i
 
-            move = self.rng.choice(vacancy)
-            vacancy.remove(move)
+            self.ignore_efficiency = True
 
-            if self.ignore_efficiency:
-                if Judge.is_legal_move(board, move, self.player):
-                    self.ignore_efficiency = False
-                    return move
-                else:
-                    continue
-
-            if self.is_move_efficient(move, board):
-                if Judge.is_legal_move(board, move, self.player):
-                    return move
-            else:
-                continue
+        return PASS_STONE
 
     def is_move_efficient(self, move, board):  # use some simple rules
         if self.step < 5:
@@ -57,19 +44,19 @@ class RandomPolicyAgent(Agent):
         # 0 for using all strategy
         # 1 for using move_on_eye only
         # 2 for using strength only
-        if self.strategy == 0:
+        if RANDOM_AGENT_STRATEGY == 0:
             if self.move_on_eye(move, board):
                 return False
             elif not self.is_extending_from_strength(move, board):
                 return False
             else:
                 return True
-        elif self.strategy == 1:
+        elif RANDOM_AGENT_STRATEGY == 1:
             if self.move_on_eye(move, board):
                 return False
             else:
                 return True
-        elif self.strategy == 2:
+        elif RANDOM_AGENT_STRATEGY == 2:
             if self.is_extending_from_strength(move, board):
                 return True
             else:

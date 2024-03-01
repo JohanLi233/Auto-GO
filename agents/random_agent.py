@@ -16,22 +16,9 @@ class RandomAgent(Agent):
         # print("Seed was:", seed)
 
     def choose_move(self, board):
-        self.step += 1
         vacancy = board.find_vacancy()
-
-        # Giving up when a lot behind
-        # Might cost too long for a game if agents play towards the real end for a large board
-        # if self.should_surrender(board):
-        #     return SURRENDER_STONE
-
-        while True:
-            # No space to place a stone
-            if len(vacancy) == 0:
-                return PASS_STONE
-            move = self.rng.choice(vacancy)
-            vacancy.remove(move)
-
-            if Judge.is_legal_move(board, move, self.player):
-                return move
-            else:
-                continue
+        self.rng.shuffle(vacancy)
+        for i in vacancy:
+            if Judge.is_legal_move(board, i, self.player):
+                return i
+        return PASS_STONE
