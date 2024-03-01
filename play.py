@@ -22,12 +22,12 @@ def main():
 
         # agent_b = PlayerAgent(Player.black)
         # agent_b = SequentialAgent(Player.black)
-        agent_b = RandomPolicyAgent(Player.black)
+        agent_b = RandomPolicyAgent(Player.black, 1)
         # agent_b = RandomAgent(Player.black)
         # agent_w = PlayerAgent(Player.white)
         # agent_w = SequentialAgent(Player.white)
-        # agent_w = RandomPolicyAgent(Player.white)
-        agent_w = RandomAgent(Player.white)
+        agent_w = RandomPolicyAgent(Player.white, 1)
+        # agent_w = RandomAgent(Player.white)
 
         if PRINT_BOARD:
             board.print_board()

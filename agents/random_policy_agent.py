@@ -9,11 +9,12 @@ import sys
 class RandomPolicyAgent(Agent):
     """An agent that plays randomly and following some simple rules"""
 
-    def __init__(self, player):
+    def __init__(self, player, strategy):
         super().__init__(player)
         seed = random.randrange(sys.maxsize)
         self.rng = random.Random(seed)
         self.ignore_efficiency = False
+        self.strategy = strategy
         # print("Seed was:", seed)
 
     def choose_move(self, board):
@@ -53,11 +54,28 @@ class RandomPolicyAgent(Agent):
     def is_move_efficient(self, move, board):  # use some simple rules
         if self.step < 5:
             return True
-        if self.move_on_eye(move, board):
-            return False
-        elif not self.is_extending_from_strength(move, board):
-            return False
+        # 0 for using all strategy
+        # 1 for using move_on_eye only
+        # 2 for using strength only
+        if self.strategy == 0:
+            if self.move_on_eye(move, board):
+                return False
+            elif not self.is_extending_from_strength(move, board):
+                return False
+            else:
+                return True
+        elif self.strategy == 1:
+            if self.move_on_eye(move, board):
+                return False
+            else:
+                return True
+        elif self.strategy == 2:
+            if self.is_extending_from_strength(move, board):
+                return True
+            else:
+                return False
         else:
+            # Unknown strategy
             return True
 
     def move_on_eye(self, move, board):  # not to place on eye
@@ -92,7 +110,8 @@ class RandomPolicyAgent(Agent):
                         strong_groups_nearby = True
 
         # A move is considered as extending from strength if it's next to at least one strong friendly group,
-        # and it's not completely surrounded by friendly stones (to avoid filling in one's own eyes).
+        # and it's not completely surrounded by friendly stones (to avoid filling in one's own eyes)
+        # this is checked using move_one_eye method
         if strong_groups_nearby and empty_neighbors > 0:
             return True
         else:
